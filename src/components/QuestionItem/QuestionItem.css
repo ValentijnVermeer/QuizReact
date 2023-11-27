@@ -1,0 +1,26 @@
+.question-form {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.list-item {
+  list-style: none;
+  display: flex;
+  padding: 0.5rem 1rem;
+  background-color: rgb(173, 173, 173);
+  border-radius: 8px;
+}
+
+.checked {
+  background-color: yellow;
+}
+
+.question-item {
+  padding-bottom: 25px;
+}
