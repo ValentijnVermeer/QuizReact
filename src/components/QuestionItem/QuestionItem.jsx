@@ -7,39 +7,30 @@ export default function QuestionItem({
   questionIndex,
   selectedAnswers,
 }) {
-  console.log(question);
-  console.log(question)
+  // console.log(question);
 
-  const [selectedByUser, setSelectedByUser] = useState([])
+  const [selectedByUser, setSelectedByUser] = useState("");
 
   const handleSelectedAnswer = (shuffledAnswer) => {
-    setSelectedByUser(shuffledAnswer)
-
-    console.log(shuffledAnswer)
-  }
+    setSelectedByUser(shuffledAnswer);
+    question["user_answer"] = shuffledAnswer;
+    console.log(question)
+    // setQuestionsWithAnswers([question])
+    // console.log(questionWithAnswers)
+  };
 
   return (
     <div className="question-item">
       <h2>{question.question}</h2>
-      {question.shuffled_answers.map(shuffledAnswer => (
-        <button className={shuffledAnswer === selectedByUser ? 'selected' : ''} onClick={() => handleSelectedAnswer(shuffledAnswer)}>{shuffledAnswer}</button>
+      {question.shuffled_answers.map((shuffledAnswer, index) => (
+        <button
+          key={index}
+          className={shuffledAnswer === selectedByUser ? "selected" : ""}
+          onClick={() => handleSelectedAnswer(shuffledAnswer)}
+        >
+          {shuffledAnswer}
+        </button>
       ))}
-
-      {/* <form className="question-form">
-      {question.answers.map((item, index) => (
-          <li key={index} className={`list-item ${selectedAnswers[questionIndex] === item ? 'checked' : ''}`}>
-              <label>
-                  <input
-                    type="radio"
-                    name="answer"
-                    value={item}
-                    onClick={()=> handleSelectedItem(item, questionIndex)}
-                  />
-                 {item}
-              </label>
-          </li>
-      ))}
-      </form> */}
     </div>
   );
 }

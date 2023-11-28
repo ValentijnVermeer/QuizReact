@@ -10,12 +10,15 @@ export default function QuestionList() {
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [toggleAnswers, setToggleAnswers] = useState(false);
   const [quizQuestions, setQuizQuestions] = useState([]);
+  const [questionsWithAnswers, setQuestionsWithAnswers] = useState([]);
 
   const handleSelectedItem = (item, index) => {
     const updatedAnswers = [...selectedAnswers];
     updatedAnswers[index] = item;
     setSelectedAnswers(updatedAnswers);
   };
+
+
 
   useEffect(() => {
     axios
