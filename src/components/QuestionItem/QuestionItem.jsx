@@ -6,6 +6,7 @@ export default function QuestionItem({
   handleSelectedItem,
   questionIndex,
   selectedAnswers,
+  addQuestionWithUserAnswer
 }) {
   // console.log(question);
 
@@ -13,10 +14,10 @@ export default function QuestionItem({
 
   const handleSelectedAnswer = (shuffledAnswer) => {
     setSelectedByUser(shuffledAnswer);
-    question["user_answer"] = shuffledAnswer;
+    const copyOfQuestionWithUserAnswer = {...question, user_answer: shuffledAnswer}
     console.log(question)
-    // setQuestionsWithAnswers([question])
-    // console.log(questionWithAnswers)
+    console.log(copyOfQuestionWithUserAnswer)
+    addQuestionWithUserAnswer(copyOfQuestionWithUserAnswer)
   };
 
   return (

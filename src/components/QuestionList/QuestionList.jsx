@@ -72,6 +72,15 @@ export default function QuestionList() {
       .catch((e) => console.log(e));
   }, []);
 
+  const addQuestionWithUserAnswer = (copyOfQuestionWithUserAnswer) => {
+    setQuestionsWithAnswers(prevQuestions => [...prevQuestions, copyOfQuestionWithUserAnswer]);
+    
+  };
+
+  useEffect(() => {
+    console.log(questionsWithAnswers);
+  }, [questionsWithAnswers]);
+
   return (
     <div className="question-list">
       <h1>Test Question List</h1>
@@ -83,6 +92,7 @@ export default function QuestionList() {
             handleSelectedItem={handleSelectedItem}
             questionIndex={index}
             selectedAnswers={selectedAnswers}
+            addQuestionWithUserAnswer={addQuestionWithUserAnswer}
           />
         ))}
       {!toggleAnswers && (
