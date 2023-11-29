@@ -1,36 +1,13 @@
-.question-form {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  width: 100%;
+.neon-button-outline {
+  color: #08f;
+  border-color: #08f;
+  background-color: #111;
+  text-shadow: 0 0 5px #08f, 0 0 10px #08f, 0 0 15px #08f, 0 0 20px #08f;
+  box-shadow: 0 0 5px #08f, 0 0 10px #08f, 0 0 15px #08f, 0 0 20px #08f;
 }
-
-input[type="radio"] {
-  display: none;
-}
-
-.list-item {
-  list-style: none;
-  display: flex;
-  padding: 0.5rem 1rem;
-  background-color: rgb(173, 173, 173);
-  border-radius: 8px;
-}
-
-.checked {
-  background-color: yellow;
-}
-
-.question-item {
-  padding-bottom: 25px;
-}
-
-button {
-
-  cursor: pointer;
-}
-
-.selected {
-
-  background-color: yellow;
+.neon-button-outline:hover {
+  background-color: #08f;
+  color: #111;
+  text-shadow: none;
+  box-shadow: none;
 }

@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./QuestionItem.css";
 import { useState } from "react";
 
@@ -25,17 +26,21 @@ const [selectedByUser, setSelectedByUser] = useState(initialSelectedAnswer);
   };
 
   return (
-    <div className="question-item">
-      <h2>{question.question}</h2>
-      {question.shuffled_answers.map((shuffledAnswer, index) => (
-        <button
-          key={index}
-          className={shuffledAnswer === selectedByUser ? "selected" : ""}
-          onClick={() => handleSelectedAnswer(shuffledAnswer)}
-        >
-          {shuffledAnswer}
-        </button>
-      ))}
+    <div className="question-item card text-center">
+      <div className="card-header">
+        <h2>{question.question}</h2>
+      </div>
+      <div className="card-body">
+        {question.shuffled_answers.map((shuffledAnswer, index) => (
+          <button
+            key={index}
+            className={`btn ${shuffledAnswer === selectedByUser ? "btn-primary neon-button" : "btn-outline-primary neon-button-outline"} m-2`}
+            onClick={() => handleSelectedAnswer(shuffledAnswer)}
+          >
+            {shuffledAnswer}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

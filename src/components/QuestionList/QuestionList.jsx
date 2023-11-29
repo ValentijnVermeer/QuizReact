@@ -137,8 +137,8 @@ const addQuestionWithUserAnswer = (copyOfQuestionWithUserAnswer) => {
   }, [questionsWithAnswers]);
 
   return (
-    <div className="question-list">
-      <h1>Test Question List</h1>
+    <div className="question-list container mt-5">
+      <h1 className="text-center mb-4">Test Question List</h1>
       {quizQuestions.length > 0  && !toggleAnswers && (
         <QuestionItem
           question={quizQuestions[questionIndex]}
@@ -148,19 +148,21 @@ const addQuestionWithUserAnswer = (copyOfQuestionWithUserAnswer) => {
           questionsWithAnswers={questionsWithAnswers}
         />
       )}
-       <button onClick={handlePrevious} disabled={questionIndex === 0}>Previous</button>
-          <button onClick={handleNext} disabled={questionIndex === quizQuestions.length - 1}>Next</button>
-      {!toggleAnswers && (
-        <button
-          className="submit-button"
-          disabled={
-            quizQuestions.length != questionsWithAnswers.length ? true : false
-          }
-          onClick={handleToggleAnswers}
-        >
-          Submit
-        </button>
-      )}
+      <div className="d-flex justify-content-center mt-3">
+        <button className="btn btn-primary neon-button mr-2" onClick={handlePrevious} disabled={questionIndex === 0}>Previous</button>
+        <button className="btn btn-primary neon-button mr-2" onClick={handleNext} disabled={questionIndex === quizQuestions.length - 1}>Next</button>
+        {!toggleAnswers && (
+          <button
+            className="btn btn-primary neon-button"
+            disabled={
+              quizQuestions.length != questionsWithAnswers.length ? true : false
+            }
+            onClick={handleToggleAnswers}
+          >
+            Submit
+          </button>
+        )}
+      </div>
       {toggleAnswers && (
         <AnswerList
           questions={quizQuestions}
