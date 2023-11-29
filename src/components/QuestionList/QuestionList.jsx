@@ -73,9 +73,25 @@ export default function QuestionList() {
   }, []);
 
   const addQuestionWithUserAnswer = (copyOfQuestionWithUserAnswer) => {
-    setQuestionsWithAnswers(prevQuestions => [...prevQuestions, copyOfQuestionWithUserAnswer]);
-    
+    if(questionsWithAnswers.find(q => q.question === copyOfQuestionWithUserAnswer.question)) {
+      setQuestionsWithAnswers(
+        questionsWithAnswers.map(item => {
+          if(item.question === copyOfQuestionWithUserAnswer.question) {
+            return copyOfQuestionWithUserAnswer;
+          } else {return item;}
+        }))
+    } else {setQuestionsWithAnswers(prevQuestions => [...prevQuestions, copyOfQuestionWithUserAnswer]);}
   };
+  
+   // const addQuestionWithUserAnswer = (copyOfQuestionWithUserAnswer) => {
+  //   questionsWithAnswers.map(item => {
+  //     if(item.question === copyOfQuestionWithUserAnswer.question) {
+  //       item.user_answer = copyOfQuestionWithUserAnswer.user_answer;
+  //     } else {setQuestionsWithAnswers(prevQuestions => [...prevQuestions, copyOfQuestionWithUserAnswer]);}
+  //   }) 
+  //   console.log(questionsWithAnswers)
+  // };
+
 
   useEffect(() => {
     console.log(questionsWithAnswers);
