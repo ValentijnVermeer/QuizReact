@@ -11,6 +11,7 @@ export default function QuestionList() {
   const [toggleAnswers, setToggleAnswers] = useState(false);
   const [quizQuestions, setQuizQuestions] = useState([]);
   const [questionsWithAnswers, setQuestionsWithAnswers] = useState([]);
+  const [score, setScore] = useState(0)
 
   const handleSelectedItem = (item, index) => {
     const updatedAnswers = [...selectedAnswers];
@@ -68,6 +69,7 @@ export default function QuestionList() {
         // Code shuffleAnswers
 
         setQuizQuestions(updatedQuestions);
+        console.log(res.data.results)
       })
       .catch((e) => console.log(e));
   }, []);
@@ -93,6 +95,20 @@ export default function QuestionList() {
   // };
 
 
+  
+
+
+const handleToggleAnswers = () => {
+
+  questionsWithAnswers.forEach((obj) => {
+    if(obj.user_answer === obj.correct_answer){
+        setScore(prevScore => prevScore + 1)
+    }
+})
+  setToggleAnswers(true);
+};
+
+
   useEffect(() => {
     console.log(questionsWithAnswers);
   }, [questionsWithAnswers]);
@@ -111,17 +127,17 @@ export default function QuestionList() {
             addQuestionWithUserAnswer={addQuestionWithUserAnswer}
           />
         ))}
-      {!toggleAnswers && (
+        {!toggleAnswers && (
         <button
           className="submit-button"
-          disabled={selectedAnswers.length != questions.length ? true : false}
-          onClick={() => setToggleAnswers(true)}
+          disabled={quizQuestions.length != questionsWithAnswers.length ? true : false} 
+          onClick={handleToggleAnswers}
         >
           Submit
         </button>
       )}
       {toggleAnswers && (
-        <AnswerList selectedAnswers={selectedAnswers} questions={questions} />
+        <AnswerList selectedAnswers={selectedAnswers} questions={questions} questionsWithAnswers={questionsWithAnswers} score={score} />
       )}
     </div>
   );
