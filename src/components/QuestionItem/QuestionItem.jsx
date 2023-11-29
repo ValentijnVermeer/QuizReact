@@ -3,18 +3,25 @@ import { useState } from "react";
 
 export default function QuestionItem({
   question,
-  addQuestionWithUserAnswer
-}) {
-  // console.log(question);
+  addQuestionWithUserAnswer,
+  questionsWithAnswers,
+}) 
+{
+const initialSelectedAnswer = questionsWithAnswers.find(
+  (q) => q.question === question.question
+)?.user_answer || '';
 
-  const [selectedByUser, setSelectedByUser] = useState("");
+const [selectedByUser, setSelectedByUser] = useState(initialSelectedAnswer);
 
   const handleSelectedAnswer = (shuffledAnswer) => {
     setSelectedByUser(shuffledAnswer);
-    const copyOfQuestionWithUserAnswer = {...question, user_answer: shuffledAnswer}
-    console.log(question)
-    console.log(copyOfQuestionWithUserAnswer)
-    addQuestionWithUserAnswer(copyOfQuestionWithUserAnswer)
+    const copyOfQuestionWithUserAnswer = {
+      ...question,
+      user_answer: shuffledAnswer,
+    };
+    console.log(question);
+    console.log(copyOfQuestionWithUserAnswer);
+    addQuestionWithUserAnswer(copyOfQuestionWithUserAnswer);
   };
 
   return (
