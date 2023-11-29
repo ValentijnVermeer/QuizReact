@@ -3,9 +3,6 @@ import { useState } from "react";
 
 export default function QuestionItem({
   question,
-  handleSelectedItem,
-  questionIndex,
-  selectedAnswers,
   addQuestionWithUserAnswer
 }) {
   // console.log(question);
