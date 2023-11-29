@@ -11,3 +11,6 @@
   text-shadow: none;
   box-shadow: none;
 }
+.question-item.card {
+  background-color: #111;
+}

@@ -137,17 +137,17 @@ const addQuestionWithUserAnswer = (copyOfQuestionWithUserAnswer) => {
   }, [questionsWithAnswers]);
 
   return (
-    <div className="question-list container mt-5">
-      <h1 className="text-center mb-4">Test Question List</h1>
-      {quizQuestions.length > 0  && !toggleAnswers && (
-        <QuestionItem
-          question={quizQuestions[questionIndex]}
-          key={questionIndex}
-          questionIndex={questionIndex}
-          addQuestionWithUserAnswer={addQuestionWithUserAnswer}
-          questionsWithAnswers={questionsWithAnswers}
-        />
-      )}
+    <div className="question-list container mt-5 bg-dark text-white">
+    <h1 className="text-center mb-4 neon-text">Test Question List</h1>
+    {quizQuestions.length > 0  && !toggleAnswers && (
+      <QuestionItem
+        question={quizQuestions[questionIndex]}
+        key={questionIndex}
+        questionIndex={questionIndex}
+        addQuestionWithUserAnswer={addQuestionWithUserAnswer}
+        questionsWithAnswers={questionsWithAnswers}
+      />
+    )}
       <div className="d-flex justify-content-center mt-3">
         <button className="btn btn-primary neon-button mr-2" onClick={handlePrevious} disabled={questionIndex === 0}>Previous</button>
         <button className="btn btn-primary neon-button mr-2" onClick={handleNext} disabled={questionIndex === quizQuestions.length - 1}>Next</button>
