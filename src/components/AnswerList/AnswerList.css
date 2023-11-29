@@ -1,5 +1,5 @@
 .neon-text {
-    color: #0f0;
+    color: #08f;
     text-shadow: 0 0 2px #0f0, 0 0 4px #0f0;
   }
   .neon-blue-text {
@@ -11,3 +11,10 @@
     color: #f0f;
     text-shadow: 0 0 2px #f0f, 0 0 4px #f0f;
   }
+  .container {
+    background-color: #111 !important;
+  }
+  .alert{
+    background-color: #111 !important;
+  }
+  

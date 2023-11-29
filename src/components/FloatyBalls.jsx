@@ -11,11 +11,11 @@ function FloatingBalls() {
           document.body.appendChild(ball);
       
           ball.style.transition = 'all 0.5s linear 0s';
-          ball.style.left = ball.offsetLeft - 6 + 'px'; // Adjusted from 20 to 10
-          ball.style.top = ball.offsetTop - 6 + 'px'; // Adjusted from 20 to 10
+          ball.style.left = ball.offsetLeft - 6 + 'px'; 
+          ball.style.top = ball.offsetTop - 6 + 'px'; 
       
-          ball.style.width = '20px'; // Adjusted from 40 to 20
-          ball.style.height = '20px'; // Adjusted from 40 to 20
+          ball.style.width = '20px'; 
+          ball.style.height = '20px'; 
           ball.style.borderRadius = '50%';
           ball.style.opacity = 0;
       

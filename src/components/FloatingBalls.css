@@ -1,6 +1,6 @@
 .ball {
   position: absolute;
-  background-color: rgba(255, 0, 179, 0.7); /* Adjusted color and transparency */
+  background-color: rgba(255, 0, 179, 0.7);
   width: 5px;
   height: 5px;
   border-radius: 50%;

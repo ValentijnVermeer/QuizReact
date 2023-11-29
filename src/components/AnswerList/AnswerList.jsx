@@ -17,10 +17,10 @@ export default function AnswerList({ questionsWithAnswers, score }) {
             </div>
           </div>
         ))}
-          <div className="alert alert-primary neon-text" role="alert">
-            Your score: {score} / {questionsWithAnswers.length}
-          </div>
-          {score === 10 && <div className="alert alert-success neon-text" role="alert">Great job</div>}
-        </div>
+    <div className="alert alert-primary neon-text" role="alert">
+      Your score: {score} / {questionsWithAnswers.length}
+    </div>
+    {score === 10 && <div className="alert alert-success neon-text" role="alert">Great job</div>}
+  </div>
       );
 }
