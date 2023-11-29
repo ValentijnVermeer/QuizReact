@@ -1,16 +1,15 @@
 import QuestionItem from "../QuestionItem/QuestionItem.jsx";
-import questions from "../questions.jsx";
 import { useState, useEffect } from "react";
 import "./QuestionList.css";
 import AnswerList from "../AnswerList/AnswerList.jsx";
 import axios from "axios";
 
 export default function QuestionList() {
-
   const [toggleAnswers, setToggleAnswers] = useState(false);
   const [quizQuestions, setQuizQuestions] = useState([]);
   const [questionsWithAnswers, setQuestionsWithAnswers] = useState([]);
-  const [score, setScore] = useState(0)
+  const [score, setScore] = useState(0);
+  const [questionIndex, setQuestionIndex] = useState(0);
 
   useEffect(() => {
     axios
@@ -39,94 +38,137 @@ export default function QuestionList() {
 
           return htmlStr;
         }
-        const updatedQuestions = res.data.results.map(question => {
-        const unescapedQuestion = unEscape(question.question);
-        const unescapedCorrectAnswer = unEscape(question.correct_answer);
-        const unescapedIncorrectAnswers = question.incorrect_answers.map(unEscape);
+        const updatedQuestions = res.data.results.map((question) => {
+          const unescapedQuestion = unEscape(question.question);
+          const unescapedCorrectAnswer = unEscape(question.correct_answer);
+          const unescapedIncorrectAnswers =
+            question.incorrect_answers.map(unEscape);
 
-        const shuffledAnswers = shuffleAnswers(
-          question.correct_answer,
-          question.incorrect_answers
-        );
-        return {
-          ...question,
-          question: unescapedQuestion,
-          correct_answer: unescapedCorrectAnswer,
-          incorrect_answers: unescapedIncorrectAnswers,
-          shuffled_answers: shuffledAnswers 
-        };
-      
-      })
+          const shuffledAnswers = shuffleAnswers(
+            question.correct_answer,
+            question.incorrect_answers
+          );
+          return {
+            ...question,
+            question: unescapedQuestion,
+            correct_answer: unescapedCorrectAnswer,
+            incorrect_answers: unescapedIncorrectAnswers,
+            shuffled_answers: shuffledAnswers,
+          };
+        });
         // Code shuffleAnswers
 
         setQuizQuestions(updatedQuestions);
-        console.log(res.data.results)
+        console.log(res.data.results);
       })
       .catch((e) => console.log(e));
   }, []);
 
-  const addQuestionWithUserAnswer = (copyOfQuestionWithUserAnswer) => {
-    if(questionsWithAnswers.find(q => q.question === copyOfQuestionWithUserAnswer.question)) {
-      setQuestionsWithAnswers(
-        questionsWithAnswers.map(item => {
-          if(item.question === copyOfQuestionWithUserAnswer.question) {
-            return copyOfQuestionWithUserAnswer;
-          } else {return item;}
-        }))
-    } else {setQuestionsWithAnswers(prevQuestions => [...prevQuestions, copyOfQuestionWithUserAnswer]);}
-  };
+  // const addQuestionWithUserAnswer = (copyOfQuestionWithUserAnswer) => {
+  //   if (
+  //     questionsWithAnswers.find(
+  //       (q) => q.question === copyOfQuestionWithUserAnswer.question
+  //     )
+  //   ) {
+  //     setQuestionsWithAnswers(
+  //       questionsWithAnswers.map((item) => {
+  //         if (item.question === copyOfQuestionWithUserAnswer.question) {
+  //           return copyOfQuestionWithUserAnswer;
+  //         } else {
+  //           return item;
+  //         }
+  //       })
+  //     );
+  //   } else {
+  //     setQuestionsWithAnswers((prevQuestions) => [
+  //       ...prevQuestions,
+  //       copyOfQuestionWithUserAnswer,
+  //     ]);
+  //   }
+  // };
+
   
-   // const addQuestionWithUserAnswer = (copyOfQuestionWithUserAnswer) => {
+const addQuestionWithUserAnswer = (copyOfQuestionWithUserAnswer) => {
+  const updatedQuestions = [...questionsWithAnswers];
+
+  const existingQuestionIndex = updatedQuestions.findIndex(
+    (q) => q.question === copyOfQuestionWithUserAnswer.question
+  );
+
+  if (existingQuestionIndex !== -1) {
+    updatedQuestions[existingQuestionIndex] = copyOfQuestionWithUserAnswer;
+  } else {
+    updatedQuestions.push(copyOfQuestionWithUserAnswer);
+  }
+
+  setQuestionsWithAnswers(updatedQuestions);
+};
+
+  // const addQuestionWithUserAnswer = (copyOfQuestionWithUserAnswer) => {
   //   questionsWithAnswers.map(item => {
   //     if(item.question === copyOfQuestionWithUserAnswer.question) {
   //       item.user_answer = copyOfQuestionWithUserAnswer.user_answer;
   //     } else {setQuestionsWithAnswers(prevQuestions => [...prevQuestions, copyOfQuestionWithUserAnswer]);}
-  //   }) 
+  //   })
   //   console.log(questionsWithAnswers)
   // };
 
+  const handleToggleAnswers = () => {
+    questionsWithAnswers.forEach((obj) => {
+      if (obj.user_answer === obj.correct_answer) {
+        setScore((prevScore) => prevScore + 1);
+      }
+    });
+    setToggleAnswers(true);
+  };
 
-  
+  const handlePrevious = () => {
+    setQuestionIndex((prev) => prev - 1);
+  };
 
-
-const handleToggleAnswers = () => {
-
-  questionsWithAnswers.forEach((obj) => {
-    if(obj.user_answer === obj.correct_answer){
-        setScore(prevScore => prevScore + 1)
-    }
-})
-  setToggleAnswers(true);
-};
-
+  const handleNext = () => {
+    setQuestionIndex((prev) => prev + 1);
+  };
 
   useEffect(() => {
-    console.log(questionsWithAnswers);
+    console.log(quizQuestions, 'quizQuestions');
+    console.log(quizQuestions[questionIndex], 'qQ with index');
+
   }, [questionsWithAnswers]);
 
   return (
-    <div className="question-list">
-      <h1>Test Question List</h1>
-      {!toggleAnswers &&
-        quizQuestions.map((question, index) => (
-          <QuestionItem
-            question={question}
-            key={index}
-            questionIndex={index}
-            addQuestionWithUserAnswer={addQuestionWithUserAnswer}
-          />
-        ))}
-        {!toggleAnswers && (
-        <button
-          className="submit-button"
-          disabled={quizQuestions.length != questionsWithAnswers.length ? true : false} 
-          onClick={handleToggleAnswers}
-        >
-          Submit
-        </button>
+    <div className="question-list container mt-5">
+      <h1 className="text-center mb-4">Test Question List</h1>
+      {quizQuestions.length > 0  && !toggleAnswers && (
+        <QuestionItem
+          question={quizQuestions[questionIndex]}
+          key={questionIndex}
+          questionIndex={questionIndex}
+          addQuestionWithUserAnswer={addQuestionWithUserAnswer}
+          questionsWithAnswers={questionsWithAnswers}
+        />
       )}
+      <div className="d-flex justify-content-center mt-3">
+        <button className="btn btn-primary neon-button mr-2" onClick={handlePrevious} disabled={questionIndex === 0}>Previous</button>
+        <button className="btn btn-primary neon-button mr-2" onClick={handleNext} disabled={questionIndex === quizQuestions.length - 1}>Next</button>
+        {!toggleAnswers && (
+          <button
+            className="btn btn-primary neon-button"
+            disabled={
+              quizQuestions.length != questionsWithAnswers.length ? true : false
+            }
+            onClick={handleToggleAnswers}
+          >
+            Submit
+          </button>
+        )}
+      </div>
       {toggleAnswers && (
-        <AnswerList questions={questions} questionsWithAnswers={questionsWithAnswers} score={score} />
+        <AnswerList
+          questions={quizQuestions}
+          questionsWithAnswers={questionsWithAnswers}
+          score={score}
+        />
       )}
     </div>
   );
