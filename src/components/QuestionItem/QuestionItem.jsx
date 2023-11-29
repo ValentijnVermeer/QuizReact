@@ -27,9 +27,9 @@ const [selectedByUser, setSelectedByUser] = useState(initialSelectedAnswer);
 
   return (
     <div className="question-item card text-center">
-      <div className="card-header">
-        <h2>{question.question}</h2>
-      </div>
+<div className="card-header neon-text">
+  <h2>{question.question}</h2>
+</div>
       <div className="card-body">
         {question.shuffled_answers.map((shuffledAnswer, index) => (
           <button

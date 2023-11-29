@@ -1,0 +1,13 @@
+.neon-text {
+    color: #0f0;
+    text-shadow: 0 0 2px #0f0, 0 0 4px #0f0;
+  }
+  .neon-blue-text {
+    color: #08f;
+    text-shadow: 0 0 2px #08f, 0 0 4px #08f;
+  }
+  
+  .neon-pink-text {
+    color: #f0f;
+    text-shadow: 0 0 2px #f0f, 0 0 4px #f0f;
+  }
