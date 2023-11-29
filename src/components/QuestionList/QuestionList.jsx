@@ -7,19 +7,10 @@ import axios from "axios";
 
 export default function QuestionList() {
 
-  const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [toggleAnswers, setToggleAnswers] = useState(false);
   const [quizQuestions, setQuizQuestions] = useState([]);
   const [questionsWithAnswers, setQuestionsWithAnswers] = useState([]);
   const [score, setScore] = useState(0)
-
-  const handleSelectedItem = (item, index) => {
-    const updatedAnswers = [...selectedAnswers];
-    updatedAnswers[index] = item;
-    setSelectedAnswers(updatedAnswers);
-  };
-
-
 
   useEffect(() => {
     axios
@@ -121,9 +112,7 @@ const handleToggleAnswers = () => {
           <QuestionItem
             question={question}
             key={index}
-            handleSelectedItem={handleSelectedItem}
             questionIndex={index}
-            selectedAnswers={selectedAnswers}
             addQuestionWithUserAnswer={addQuestionWithUserAnswer}
           />
         ))}
@@ -137,7 +126,7 @@ const handleToggleAnswers = () => {
         </button>
       )}
       {toggleAnswers && (
-        <AnswerList selectedAnswers={selectedAnswers} questions={questions} questionsWithAnswers={questionsWithAnswers} score={score} />
+        <AnswerList questions={questions} questionsWithAnswers={questionsWithAnswers} score={score} />
       )}
     </div>
   );

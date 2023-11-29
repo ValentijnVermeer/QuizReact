@@ -10,7 +10,7 @@ export default function AnswerList({ questionsWithAnswers, score }) {
                 
                 </div>
             ))}
-            <h3>{`Your score: ${score}`}</h3>
+            <h3>{`Your score: ${score} /${questionsWithAnswers.length}`}</h3>
             {score === 10 && <h3>Great job</h3>}
         </>
     );
