@@ -13,8 +13,13 @@
   }
   .container {
     background-color: #111 !important;
+    padding-top: 1rem !important;
+    max-height: 100vh;
   }
   .alert{
     background-color: #111 !important;
   }
-  
+  .alert {
+    text-align: center;
+    font-size: 1.5em;
+  }
